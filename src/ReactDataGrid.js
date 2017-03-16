@@ -58,6 +58,7 @@ const ReactDataGrid = React.createClass({
     rowsCount: React.PropTypes.number.isRequired,
     toolbar: React.PropTypes.element,
     enableCellSelect: React.PropTypes.bool,
+    defaultCellSelection: React.PropTypes.bool,
     columns: React.PropTypes.oneOfType([React.PropTypes.object, React.PropTypes.array]).isRequired,
     onFilter: React.PropTypes.func,
     onCellCopyPaste: React.PropTypes.func,
@@ -112,6 +113,7 @@ const ReactDataGrid = React.createClass({
   getDefaultProps(): {enableCellSelect: boolean} {
     return {
       enableCellSelect: false,
+      defaultCellSelection: true,
       tabIndex: -1,
       rowHeight: 35,
       enableRowSelect: false,
@@ -131,7 +133,7 @@ const ReactDataGrid = React.createClass({
   getInitialState: function(): {selected: SelectedType; copied: ?{idx: number; rowIdx: number}; selectedRows: Array<Row>; expandedRows: Array<Row>; canFilter: boolean; columnFilters: any; sortDirection: ?SortType; sortColumn: ?ExcelColumn; dragged: ?DraggedType;  } {
     let columnMetrics = this.createColumnMetrics();
     let initialState = {columnMetrics, selectedRows: [], copied: null, expandedRows: [], canFilter: false, columnFilters: {}, sortDirection: null, sortColumn: null, dragged: null, scrollOffset: 0, lastRowIdxUiSelected: -1};
-    if (this.props.enableCellSelect) {
+    if (this.props.enableCellSelect && this.props.defaultCellSelection) {
       initialState.selected = {rowIdx: 0, idx: 0};
     } else {
       initialState.selected = {rowIdx: -1, idx: -1};
