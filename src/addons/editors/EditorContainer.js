@@ -158,7 +158,9 @@ const EditorContainer = React.createClass({
   getInputNode(): HTMLInputElement {
     return this.getEditor().getInputNode();
   },
-
+  isComponentInFocus(e) {
+    return this.getEditor().isComponentInFocus(e);
+  },
   getInitialValue(): string {
     let selected = this.props.cellMetaData.selected;
     let keyCode = selected.initialKeyCode;
@@ -236,11 +238,11 @@ const EditorContainer = React.createClass({
 
   handleBlur(e) {
     e.stopPropagation();
-    if (this.isBodyClicked(e)) {
+    if (this.isBodyClicked(e) && !this.isComponentInFocus(e)) {
       this.commit(e);
     }
 
-    if (!this.isBodyClicked(e)) {
+    if (!this.isBodyClicked(e) && !this.isComponentInFocus(e)) {
 	    // prevent null reference
       if (this.isViewportClicked(e) || !this.isClickInisdeEditor(e)) {
         this.commit(e);
