@@ -44,6 +44,7 @@ const Grid = React.createClass({
     onViewportDragEnd: PropTypes.func.isRequired,
     onViewportDoubleClick: PropTypes.func.isRequired,
     onColumnResize: PropTypes.func,
+    onScroll: PropTypes.func,
     onSort: PropTypes.func,
     cellMetaData: PropTypes.shape(cellMetaDataShape),
     rowKey: PropTypes.string.isRequired,
