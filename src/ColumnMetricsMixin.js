@@ -23,6 +23,7 @@ module.exports = {
 
   propTypes: {
     columns: PropTypes.arrayOf(Column),
+    selected: PropTypes.object,
     minColumnWidth: PropTypes.number,
     columnEquality: PropTypes.func,
     onColumnResize: PropTypes.func
@@ -51,6 +52,12 @@ module.exports = {
           nextProps.minWidth !== this.props.minWidth) {
         let columnMetrics = this.createColumnMetrics(nextProps);
         this.setState({columnMetrics: columnMetrics});
+      }
+    }
+    if (nextProps.selected) {
+      if ((nextProps.selected.idx !== -1 && nextProps.selected.rowIdx !== -1 ) 
+				&& (this.state.selected.idx !== nextProps.selected.idx || this.state.selected.rowIdx !== nextProps.selected.rowIdx)) {
+					this.setState({selected: {idx: nextProps.selected.idx, rowIdx: nextProps.selected.rowIdx}});
       }
     }
   },
